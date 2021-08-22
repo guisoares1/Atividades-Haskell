@@ -9,29 +9,22 @@ Defina os tipos das funções.
 
 {-
 Uma função que calcule x * y
-
 Entrada:
     - x
     - y
-
 Resultado: 
     - x * y
-
 Exemplos:
 >>>multiplique 2 3
 6
 >>>multiplique 3 3
 9
-
 >>>multiplique 3 (-3)
 -9
-
 >>>multiplique (-3) 3
 -9
-
 >>>multiplique (-3) (-3)
 9
-
 -}
 
 multiplique :: Int -> Int -> Int
@@ -41,14 +34,11 @@ multiplique x n = if n == 0 then 0
 
 {-
 Uma função que calcule a n-ésima potência de um número x.
-
 Entrada:
     - x: base
     - n: expoente
-
 Resultado: 
     - x elevado a n
-
 Exemplos:
 >>>potência 2 3
 8
@@ -63,20 +53,15 @@ potência x n = if n == 1 then x
 
 {-
 Uma função que calcule log base 2 de n por divisões sucessivas por 2.
-
 Entrada:
     - n
-
 Resultado: 
     - log_2 (n)
-
 Exemplos:
 >>>logBase2 100
 6
-
 >>>logBase2 16
 4
-
 -}
 logBase2 :: Int -> Int
 logBase2 n = if n== 1 then 0
@@ -85,14 +70,11 @@ logBase2 n = if n== 1 then 0
 
 {-
 Uma função que rotacione os elementos de uma tupla n vezes.
-
 Entrada:
     - t: tupla de 5 inteiros.
     - n: número de rotações a ser feito. Rotacionar à direita se n é positivo e a esquerda se n é negativo.
-
 Resultado: 
     - t rotacionado n vezes.
-
 Exemplos:
 >>>rotacionar (1,2,3,4,5) 2
 (4,5,1,2,3)
@@ -111,27 +93,21 @@ rotacionar (x1, x2, x3, x4 ,x5) n = if n == 0 then (x1, x2, x3, x4 ,x5)
 
 {-
 Uma função que jogue fora os caracteres inicias de uma string s até que o restante da string se inicie com um caractere c ou que a string fique fazia.
-
 Entrada:
     - s: string
     - c: caractere.
-
 Resultado: 
     - a string resultante.
-
 Exemplos:
 >>>jogarForaAté "Eu quis dizer, você não quis escutar." ','
 ", voc\234 n\227o quis escutar."
-
 >>>jogarForaAté "Eu quis dizer, você não quis escutar." 'z'
 "zer, voc\234 n\227o quis escutar."
-
 >>>jogarForaAté "Eu quis dizer, você não quis escutar." 'v'
 "voc\234 n\227o quis escutar."
-
 -}
-jogarForaAté :: String -> String -> String
-jogarForaAté (x:xs) n2 = n2
+
+jogarForaAté s c = implementar
 
 {-
 jogarForaAté :: String -> String -> String
@@ -139,7 +115,6 @@ jogarForaAté '[]' c = []
 jogarForaAté (x:xs) c = if x==c then ([] + jogarForaAté (xs) c)
                         else [x + jogarForaAté (xs) c]
 -}
-
 
 {-
 Desafio!!
@@ -175,5 +150,6 @@ Exemplos:
 3.1412593202657186
 
 -}
-
-piDeLeibniz = implementar
+piDeLeibniz:: Float -> Float 
+piDeLeibniz n = if n == 0 then 0
+                else   4 / (n + (n-1)) + (piDeLeibniz n-1)
