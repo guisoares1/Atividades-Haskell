@@ -148,8 +148,9 @@ menornaipe c1 c2 = if naipe c1=="copas" && naipe c2=="copas" then False
                    else if naipe c1=="ouro" && naipe c2=="ouro" then False
                    else if naipe c1=="paus" && naipe c2=="paus" then False
                    else if naipe c1=="copas" then True
-                   else if naipe c1 =="espada"&& naipe c2=="copas" then True
-                   else if naipe c1=="ouro"&& naipe c2=="paus" then False
+                   else if naipe c1 =="espada"&& (naipe c2=="copas" ) then False
+                   else if naipe c1=="ouro"&& (naipe c2=="copas" || naipe c2=="espada" ) then False
+                   else if naipe c1=="paus" then False
                    else True
 
 
@@ -245,5 +246,8 @@ Uma tupla t1 ganha de uma tupla t2 se
 - se nenhuma é jogo e t1 é maior que t2
 - No caso de empate, retorne a tupla ((0,""),(0,""),(0,""))
 -}
-
-mãoGanhadora tupla1 tupla2 = error "Indefinido"
+mãoGanhadora :: Cartasmao -> Cartasmao -> Cartasmao
+mãoGanhadora mao1 mao2 = if ((éJogo (primeiraCarta mao1) (segundaCarta mao1) (terceiraCarta mao1)) && not (éJogo (primeiraCarta mao2) (segundaCarta mao2) (terceiraCarta mao2))) then mao1
+                         else if ((éJogo (primeiraCarta mao1) (segundaCarta mao1) (terceiraCarta mao1)) && (éJogo (primeiraCarta mao2) (segundaCarta mao2) (terceiraCarta mao2)) && (mao1 ==( maiorMão mao1 mao2))) then mao1
+                         else if (not (éJogo (primeiraCarta mao1) (segundaCarta mao1) (terceiraCarta mao1)) && not (éJogo (primeiraCarta mao2) (segundaCarta mao2) (terceiraCarta mao2)))then mao1
+                         else  ((0,""),(0,""),(0,""))
