@@ -1,0 +1,211 @@
+-- File containing utility functions for lists.
+
+module Root.Src.Exercise where
+import Data.Char
+--Eu
+nome = "Guilherme Soares Correa/11821BCC026"   -- coloque seu nome e matrícula aqui, como uma String
+-- juro pela minha honra, que serei ético na realização desta avaliação, 
+-- não consultando nada e nem ninguém, além das notas de aulas e das 
+-- minha soluções para exercícios anteriores.
+
+
+
+{-
+Escreva uma função **recursiva**  que calculo a soma dos quadrados dos números inteiros entre os parâmetros passados, inclusive.
+
+Entrada:
+    - i - Inteiro
+    - n - Inteiro
+Resultado
+    - i^2 + (i+1)^2 + ... + n^2
+
+Obs 0: A saída correta dos exemplos na questão primeira é:
+
+>>>somaDosQuadrados 1 3
+
+14
+
+>>>somaDosQuadrados 3 6
+
+86
+
+>>>somaDosQuadrados 5 2
+
+54
+
+>>>somaDosQuadrados 3 (-2)
+
+19
+
+-}
+somaDosQuadrados:: Int -> Int -> Int
+somaDosQuadrados i n | i>n = (i^2 + somaDosQuadrados (i-1) n)
+                     | i<n = (i^2 + somaDosQuadrados (i+1) n)
+                     | i==n = n^2
+
+{-
+Dado um período, escreva uma função que decida se é uma afirmação, interrogação, exclamação, ou nenhum.
+
+Entrada:
+    - periodo - String
+
+Resultado:
+    - "afirmacao", se período termina com ?, ou "exclamacao" se período termina com !, ou "interrogacao" se período
+    termina  com ?, ou "nada", caso contrário.
+    Ignorar espaços no fim do período.
+
+>>>tipoPeríodo "Oi."
+"afirmacao"
+
+>>>tipoPeríodo "Oi?"
+"interrogacao"
+
+>>>tipoPeríodo "Oi!"
+"exclamacao"
+
+>>>tipoPeríodo "Oi"
+"nada"
+
+>>>tipoPeríodo "Oi^"
+"nada"
+
+>>>tipoPeríodo "Oi."
+"afirmacao"
+
+>>>tipoPeríodo "Oi?     "
+"interrogacao"
+
+-}
+tipoPeríodo:: String -> String 
+tipoPeríodo período | caso == "?" = "interrogacao"
+                    | caso == "!" = "exclamacao"
+                    | caso == "." = "afirmacao"
+                    | otherwise   = "nada"
+                     where caso = take 1 (reverse (trim período)) 	                
+
+trim :: String -> String
+trim s = if head s /= ' ' && last s /= ' ' then s
+         else if head s == ' ' then trim(drop 1 s)
+         else  trim(take(length s -1) s)
+{-
+Defina uma função que remova as primeiras duplicatas de uma lista de inteiros.
+
+Entrada:
+    - l - lista de inteiros.
+
+Resultado:
+    - lista em que as primeiras ocorrências repetidas de qualquer valor foram removidas.
+
+>>>removeDuplicatas [1,2,3,4,5,3,7,8,3]
+[1,2,4,5,7,8,3]
+
+-}
+naoexist :: [Int]-> Int -> Int -> [Int]
+naoexist [] num achou= []
+naoexist (x:xs) num achou= if x==num && achou==1 then filter (num /=) xs
+                       else if x==num then naoexist xs num (achou+1) 
+                       else naoexist xs num achou
+                      
+removeDuplicatas= error "implementado abaixo"
+{-
+removeDuplicatas:: [Int] -> [Int]  
+removeDuplicatas [] = []
+removeDuplicatas l =(naoexist l (head l) 0) ++ (removeDuplicatas (tail l))
+ -}                  
+                   
+  
+{-
+Defina uma função que remova as últimas duplicatas de uma lista de inteiros.
+
+Entrada:
+    - l - lista de inteiros.
+
+Resultado:
+    - lista em que as primeiras ocorrências repetidas de qualquer valor foram removidas.
+
+>>>removeDuplicatas2 [1,2,3,4,5,3,7,8,3]
+[1,2,3,4,5,7,8]
+
+-}
+naoexist2 :: [Int]-> Int -> Int -> [Int]
+naoexist2 [] num achou= []
+naoexist2 (x:xs) num achou= if x==num && achou==1 then filter (num /=) xs
+                       else if x==num then naoexist2 xs num (achou+1) 
+                       else naoexist2 xs num achou
+removeDuplicatas2= error "implementado abaixo"
+{-                      
+removeDuplicatas2:: [Int] -> [Int]  
+removeDuplicatas2 [] = []
+removeDuplicatas2 l =[naoexist2 l (head l) 0] ++ [removeDuplicatas (tail l)]
+-}
+
+
+{-
+Mastermind 1.
+
+Dado uma lista com 4 de 8 possíveis cores, determinar se a lista é válida.
+
+Entrada:
+    - l - Lista de inteiro, onde cada inteiro vai de 1 a 8 e representa uma cor.
+
+Resultado:
+    - True se não há repetições e tem tamanho 4
+    - False se há repetições ou tamanho diferente de 4
+
+>>>mmVálido [1,2,3,4]
+True
+
+>>>mmVálido [1,2,3,9]
+False
+
+>>>mmVálido [1,2,3,4,5]
+False
+
+>>>mmVálido [1,2,4,4]
+False
+
+-}
+
+mmVálido = error "Implementado abaixo"
+{-
+mmVálido::[Int] -> Bool
+mmVálido [] = True
+mmVálido l  | (length l) /=4 = False 
+            | tamanhoposfiltro == ((length l) -1) = mmVálido tail l
+            | otherwise = False
+            where tamanhoposfiltro = filter (head l /=) l    
+            -}
+
+{-
+Mastermind 2
+
+Dado duas listas, se alguma não é válida, lançar uma exceção (use error).
+Se as duas são válidas, retornar uma tupla com a quantidade de acertos bons e ótimos da jogada.
+
+Entrada
+    - config - lista de inteiro
+    - jogada - lista de inteiro
+
+Resultado
+    - tupla (o,b) onde o é um inteiro com a quantidade de cores em jogada e que aparecem na mesma posição em config
+    e b é quantidade de cores em jogada e que aparecem em posições diferentes em config.
+
+
+>>>tentativa [1,2,3,4] [5,6,7,8]
+(0,0)
+
+>>>tentativa [1,2,3,4] [1,2,3,4]
+(4,0)
+
+>>>tentativa [1,2,3,4] [4,3,2,1]
+(0,4)
+
+>>>tentativa [1,2,3,4] [2,1,3,4]
+(2,2)
+
+>>>tentativa [1,2,3,4,5] [2,1,3,4]
+error não válido
+-}
+type Resp = (Int,Int)
+tentativa:: [Int] -> [Int] -> Resp
+tentativa config jogada = error "Implementar"

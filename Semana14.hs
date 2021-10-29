@@ -1,3 +1,7 @@
+
+
+
+
 {-1-}
 elevado :: Int -> Int -> Int 
 elevado x y = x*x + y 
@@ -16,6 +20,42 @@ minimo a b | a<=b = a
            | True = b
 minimoL :: [Int] -> Int
 minimoL x = foldr (minimo) 1000000 x
+
+{-
+4 - Usando foldX, defina uam função reverteX que reverte uma lista.
+
+>>> reverte [1..10]
+[10,9,8,7,6,5,4,3,2,1]
+-}
+{- 
+reverte :: Int -> Int ->[Int]
+reverte a b = b ++ [a]
+reverteX :: [Int] -> [Int]
+reverteX x = foldr (reverte) 0 x
+-}
+
+{-
+5 - Usando foldX, defina uma função removeDupX que recebe duas listas e que remova todo elemento da segunda lista 
+que aparece na primeira lista.
+
+>>>removeDupL [1,2,3] [0,1,2,4,3,5]
+[0,4,5]
+-}
+
+reverte :: Int -> Int ->[Int]
+reverte a b | b==a = []
+           | True = b 
+                
+reverteR :: [Int] -> [Int] -> [Int]
+removeDupL x y = foldr (reverte) 0 (zip x y)
+
+{- 6 - Defina a função filterX usando foldX e que tenha o mesmo comportamento a função padrão filter
+2 - Usando foldX, defina uma função compX que calcule o comprimento de uma lista.
+-}
+
+
+
+
 
 
 {-testes:-} 
